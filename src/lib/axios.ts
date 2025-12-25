@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
@@ -20,6 +20,7 @@ api.interceptors.request.use((config) => {
             config.headers['X-XSRF-TOKEN'] = decodeURIComponent(token);
         }
     }
+
     return config;
 });
 
