@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import LoginForm from './LoginForm';
+import SignInForm from './SignInForm';
 import RegisterForm from './RegisterForm';
 
 interface AuthModalProps {
@@ -66,7 +66,7 @@ export default function AuthModal({ isOpen, onClose, initialView = 'login' }: Au
                     </div>
 
                     {view === 'login' ? (
-                        <LoginForm
+                        <SignInForm
                             isModal
                             onSuccess={onClose}
                             onRegisterClick={() => setView('register')}
