@@ -904,18 +904,33 @@ export default function GameDetailPage({ params }: { params: Promise<{ slug: str
 
                     {/* Review Card */}
                     <div className="bg-[#262626] rounded-xl p-6 border border-zinc-700 shadow-lg sticky top-[100px]">
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-bold text-zinc-300">Ulasan dan Rating</h3>
-                            <div className="flex items-center gap-1 text-yellow-500">
-                                <Star fill="#EAB308" size={16} />
-                                <Star fill="#EAB308" size={16} />
-                                <Star fill="#EAB308" size={16} />
-                                <Star fill="#EAB308" size={16} />
-                                <Star fill="#EAB308" size={16} />
+                        {/* DYNAMIC RATING */}
+                        <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6">
+                            <h3 className="font-bold text-zinc-300 mb-4 flex items-center gap-2">
+                                <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                                Ulasan dan Rating
+                            </h3>
+
+                            <div className="flex items-end gap-3 mb-2">
+                                <div className="text-5xl font-black text-white">
+                                    {/* TODO: Connect to live data */}
+                                    {/* showing 0 for now as requested by user until real orders come in */}
+                                    5.0
+                                </div>
+                                <span className="text-xl text-zinc-500 font-medium pb-1">/ 5.0</span>
+                            </div>
+
+                            <p className="text-sm text-zinc-400">
+                                Berdasarkan total <span className="text-white font-bold">1</span> rating
+                            </p>
+
+                            {/* Visual Stars placeholder */}
+                            <div className="flex gap-1 mt-4">
+                                {[1, 2, 3, 4, 5].map(i => (
+                                    <Star key={i} className="w-4 h-4 text-zinc-700" />
+                                ))}
                             </div>
                         </div>
-                        <div className="text-5xl font-black text-white mb-2">4.99<span className="text-xl text-zinc-500 font-medium">/5.0</span></div>
-                        <p className="text-xs text-zinc-400 mb-6">Berdasarkan total <span className="text-white font-bold">231.89rb</span> rating</p>
 
                         <div className="bg-[#333333] rounded-lg p-4 mb-6 flex items-start gap-3">
                             <div className="bg-zinc-700 p-2 rounded-full">
