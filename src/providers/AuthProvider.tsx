@@ -65,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (credentials: LoginCredentials): Promise<User> => {
         // Token Auth: No need for Sanctum CSRF cookie
-        const response = await api.post('/login', credentials);
+        const response = await api.post('/api/login', credentials);
         const { user: data, token } = response.data;
 
         if (token) {
@@ -80,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const register = async (data: RegisterData) => {
-        const response = await api.post('/register', data);
+        const response = await api.post('/api/register', data);
         const { user: userData, token } = response.data;
 
         if (token) {
@@ -94,7 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const logout = async () => {
         try {
-            await api.post('/logout');
+            await api.post('/api/logout');
         } catch (e) {
             console.error('Logout error', e);
         } finally {
