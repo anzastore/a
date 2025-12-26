@@ -4,9 +4,11 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // STRICT check for 'is_auth' cookie
-    const isAuth = request.cookies.has('is_auth');
+    // STRICT check for 'user_role' cookie (Proxy for Auth in Token Mode)
+    // Since we use Token Auth, we don't have 'is_auth' from server.
+    // We rely on 'user_role' set by AuthProvider upon login.
     const userRole = request.cookies.get('user_role')?.value;
+    const isAuth = !!userRole; // If role exists, we assume logged in for Middleware purposes
 
     // 1. GUEST trying to access PROTECTED routes
     if (!isAuth) {
