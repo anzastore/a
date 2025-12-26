@@ -31,18 +31,24 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
             setError(''); // Clear errors
             toast.success("Welcome back!");
 
-            // Admin Logic: Always redirect to dashboard
+            // Admin Logic: Redirect to Admin Dashboard
             if (user.role === 'admin') {
                 router.push('/admin/dashboard');
-                // We don't call onSuccess (close modal) because we are navigating away
                 return;
             }
 
-            // User Logic: Close Modal (Stay on Page)
+            // User Logic: Redirect to User Dashboard
+            if (user.role === 'user') {
+                router.push('/user/dashboard'); // Changed from '/' to '/user/dashboard'
+
+                if (onSuccess) onSuccess(); // Close modal if applicable (though usually we redirect)
+                return;
+            }
+
+            // Fallback (if any other role exists)
             if (onSuccess) {
                 onSuccess();
             } else {
-                // Determine logic for standalone login pages if they existed (they don't per rules)
                 router.push('/');
             }
         } catch (err: any) {
