@@ -206,7 +206,7 @@ export default function Navbar() {
             </header>
 
             {/* MOBILE MENU OVERLAY */}
-            <div className={`fixed inset-0 z-40 lg:hidden pointer-events-none transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0'}`}>
+            <div className={`fixed inset-0 z-[100] lg:hidden pointer-events-none transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0'}`}>
                 {/* Backdrop */}
                 <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setIsMobileMenuOpen(false)} />
 
