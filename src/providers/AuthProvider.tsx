@@ -64,11 +64,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const login = async (credentials: LoginCredentials): Promise<User> => {
-        // await api.get('/sanctum/csrf-cookie'); // Not needed if CSRF is disabled
+        // Token Auth: No need for Sanctum CSRF cookie
         const response = await api.post('/login', credentials);
+        const { user: data, token } = response.data;
 
-        // Use returned user data directly
-        const data = response.data.user;
+        if (token) {
+            localStorage.setItem('auth_token', token);
+        }
 
         setUser(data);
         setAuthenticated(true);
@@ -78,11 +80,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     const register = async (data: RegisterData) => {
-        // await api.get('/sanctum/csrf-cookie');
         const response = await api.post('/register', data);
+        const { user: userData, token } = response.data;
 
-        // Use returned user data directly
-        const userData = response.data.user;
+        if (token) {
+            localStorage.setItem('auth_token', token);
+        }
 
         setUser(userData);
         setAuthenticated(true);
@@ -99,6 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUser(null);
             setAuthenticated(false);
             clearRoleCookie();
+            localStorage.removeItem('auth_token'); // Clear Token
 
             // MANUALLY expire is_auth cookie on client side for guaranteed safety
             document.cookie = "is_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";

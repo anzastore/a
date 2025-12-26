@@ -10,17 +10,12 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    if (typeof document !== 'undefined') {
-        const token = document.cookie
-            .split('; ')
-            .find((row) => row.startsWith('XSRF-TOKEN='))
-            ?.split('=')[1];
-
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('auth_token');
         if (token) {
-            config.headers['X-XSRF-TOKEN'] = decodeURIComponent(token);
+            config.headers.Authorization = `Bearer ${token}`;
         }
     }
-
     return config;
 });
 
