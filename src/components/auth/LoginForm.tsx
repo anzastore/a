@@ -29,7 +29,7 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
         try {
             const user = await login({ email: identifier, password });
             setError(''); // Clear errors
-            toast.success("Welcome back!");
+            toast.success(`Role Detected: ${user.role}`); // DEBUG ROLE
 
             // Admin Logic: Redirect to Admin Dashboard
             if (user.role === 'admin') {
@@ -46,6 +46,7 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
             }
 
             // Fallback (if any other role exists)
+            toast.warning(`Unknown Role: ${user.role}. Redirecting Home...`);
             if (onSuccess) {
                 onSuccess();
             } else {
