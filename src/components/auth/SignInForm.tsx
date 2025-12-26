@@ -6,13 +6,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
-interface LoginFormProps {
+interface SignInFormProps {
     onSuccess?: () => void;
     onRegisterClick?: () => void;
     isModal?: boolean;
 }
 
-export default function SignInForm({ onSuccess, onRegisterClick, isModal = false }: LoginFormProps) {
+export default function SignInForm({ onSuccess, onRegisterClick, isModal = false }: SignInFormProps) {
     const { login } = useAuthContext();
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
