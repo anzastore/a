@@ -129,7 +129,7 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
                         </svg>
                         Signing in...
                     </span>
-                ) : 'SIGN IN'}
+                ) : 'SIGN IN (v2.0)'}
             </button>
 
             <div className="mt-6 text-center">
