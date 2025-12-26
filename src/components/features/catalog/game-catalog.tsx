@@ -75,16 +75,16 @@ export default function GameCatalog() {
     return (
         <div className="w-full">
             {/* Filter Navigation */}
-            <div className="flex flex-wrap items-center gap-3 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
                 {CATEGORIES.map((cat) => (
                     <button
                         key={cat.id}
                         onClick={() => handleTabChange(cat.id)}
                         className={`
-                            px-6 py-2.5 rounded-lg text-sm font-bold whitespace-nowrap transition-all duration-300
+                            px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300 border
                             ${activeTab === cat.id
-                                ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-black shadow-lg shadow-yellow-500/20 scale-105'
-                                : 'bg-[#323437] text-zinc-400 hover:text-white hover:bg-[#3f4145] hover:scale-105'
+                                ? 'bg-yellow-500 text-black border-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.3)] scale-105'
+                                : 'bg-white/5 text-zinc-400 border-white/5 hover:border-yellow-500/50 hover:text-white hover:bg-white/10'
                             }
                         `}
                     >
@@ -95,66 +95,58 @@ export default function GameCatalog() {
 
             {/* Content Grid */}
             {visibleItems.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-4 gap-y-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-x-4 gap-y-8 animate-fade-up">
                     {visibleItems.map((item) => (
                         <Link
                             key={item.id}
                             href={`/games/${item.slug}`}
                             className="group relative block"
                         >
-                            {/* Card Container */}
-                            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#242528] transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:ring-2 group-hover:ring-yellow-500/50">
+                            {/* Glass Card Container */}
+                            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden glass-dark transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(234,179,8,0.15)] group-hover:border-yellow-500/30">
 
-                                {/* Snow Cap Overlay */}
-                                <div className="absolute top-0 left-0 w-full h-8 z-20 pointer-events-none">
-                                    <svg
-                                        className="w-full h-full text-white drop-shadow-md"
-                                        viewBox="0 0 100 20"
-                                        preserveAspectRatio="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path d="M0 0 H100 V10 Q90 15 80 10 T60 12 T40 8 T20 12 T0 10 Z" fill="white" />
-                                    </svg>
-                                </div>
-
-                                {/* Banner Image */}
+                                {/* Image Container */}
                                 <div className="absolute inset-0">
                                     <Image
                                         src={item.image}
                                         alt={item.name}
                                         fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 16vw"
                                     />
-                                    {/* Subtle Gradient Overlay at bottom */}
-                                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                    {/* Vignette Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-90 transition-opacity duration-300"></div>
                                 </div>
 
-                                {/* Tag Overlay (if exists) */}
+                                {/* Tag Badge */}
                                 {item.tag && (
-                                    <div className="absolute top-8 right-0 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-l-md shadow-lg z-20">
-                                        {item.tag}
+                                    <div className="absolute top-3 right-3">
+                                        <span className="bg-yellow-500 text-black text-[10px] font-black px-2 py-1 rounded-md shadow-lg shadow-yellow-500/20 tracking-wider">
+                                            {item.tag}
+                                        </span>
                                     </div>
                                 )}
 
-                                {/* Game Title (Bottom) */}
-                                <div className="absolute bottom-0 left-0 w-full p-4 text-center z-20">
-                                    <h3 className="text-white font-black text-lg md:text-xl uppercase italic tracking-tighter leading-none drop-shadow-lg group-hover:text-yellow-400 transition-colors">
-                                        {item.name}
-                                    </h3>
-                                    {/* Hover info */}
-                                    <div className="h-0 overflow-hidden group-hover:h-6 transition-all duration-300 ease-out opacity-0 group-hover:opacity-100">
-                                        <p className="text-[10px] text-zinc-300 mt-1">Instant Delivery</p>
+                                {/* Card Content (Bottom) */}
+                                <div className="absolute bottom-0 left-0 w-full p-4 flex flex-col justify-end h-full z-10">
+                                    <div className="transform transition-transform duration-300 group-hover:translate-y-[-5px]">
+                                        <h3 className="text-white font-display font-black text-lg md:text-xl uppercase italic tracking-tighter leading-none drop-shadow-md group-hover:text-gold-gradient transition-all">
+                                            {item.name}
+                                        </h3>
+                                        <div className="h-0.5 w-10 bg-yellow-500 mt-2 transition-all duration-300 group-hover:w-full opacity-50 group-hover:opacity-100"></div>
                                     </div>
                                 </div>
+
+                                {/* Hover Glow Overlay */}
+                                <div className="absolute inset-0 border-2 border-yellow-500/0 rounded-2xl transition-all duration-300 group-hover:border-yellow-500/30 pointer-events-none"></div>
                             </div>
                         </Link>
                     ))}
                 </div>
             ) : (
-                <div className="py-20 text-center">
-                    <div className="text-6xl mb-4 grayscale opacity-20">📂</div>
-                    <p className="text-zinc-500 text-lg">Coming Soon</p>
+                <div className="py-20 text-center glass-dark rounded-3xl border-dashed border-2 border-white/5">
+                    <div className="text-6xl mb-4 grayscale opacity-20 animate-pulse">📂</div>
+                    <p className="text-zinc-500 text-lg font-display">Coming Soon</p>
                 </div>
             )}
 
@@ -163,10 +155,13 @@ export default function GameCatalog() {
                 <div className="flex justify-center mt-12 mb-8">
                     <button
                         onClick={() => setVisibleCount(filteredItems.length)}
-                        className="bg-[#323437] text-zinc-300 font-bold px-8 py-3 rounded-xl border border-zinc-700 hover:bg-[#3f4145] hover:text-white hover:border-zinc-500 transition-all active:scale-95 flex items-center gap-2"
+                        className="group relative px-8 py-3 bg-transparent overflow-hidden rounded-xl"
                     >
-                        Tampilkan Lainnya
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                        <div className="absolute inset-0 w-full h-full bg-white/5 border border-white/10 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/50 transition-all duration-300 rounded-xl"></div>
+                        <span className="relative text-zinc-300 font-bold group-hover:text-yellow-500 flex items-center gap-2 transition-colors">
+                            View All Games
+                            <svg className="w-4 h-4 transition-transform group-hover:translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                        </span>
                     </button>
                 </div>
             )}

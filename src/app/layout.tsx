@@ -12,6 +12,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div className="bg-mesh-animate" />
+        <div className="bg-grid-pattern" />
         <AuthProvider>
           <SettingsProvider>
             <MainLayoutWrapper>
