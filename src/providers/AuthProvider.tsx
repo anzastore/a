@@ -64,28 +64,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const login = async (credentials: LoginCredentials): Promise<User> => {
-        await api.get('/sanctum/csrf-cookie');
-        await api.post('/login', credentials);
+        // await api.get('/sanctum/csrf-cookie'); // Not needed if CSRF is disabled
+        const response = await api.post('/login', credentials);
 
-        const { data } = await api.get<User>('/api/me');
+        // Use returned user data directly
+        const data = response.data.user;
+
         setUser(data);
         setAuthenticated(true);
         setRoleCookie(data.role || 'user');
 
-        // NO REDIRECT inside provider - let caller handle it based on return value
         return data;
     };
 
     const register = async (data: RegisterData) => {
-        await api.get('/sanctum/csrf-cookie');
-        await api.post('/register', data);
+        // await api.get('/sanctum/csrf-cookie');
+        const response = await api.post('/register', data);
 
-        const { data: userData } = await api.get<User>('/api/me');
+        // Use returned user data directly
+        const userData = response.data.user;
+
         setUser(userData);
         setAuthenticated(true);
         setRoleCookie(userData.role || 'user');
-
-        // NO REDIRECT - User stays on page
     };
 
     const logout = async () => {
