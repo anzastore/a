@@ -12,7 +12,7 @@ interface LoginFormProps {
     isModal?: boolean;
 }
 
-export default function LoginForm({ onSuccess, onRegisterClick, isModal = false }: LoginFormProps) {
+export default function SignInForm({ onSuccess, onRegisterClick, isModal = false }: LoginFormProps) {
     const { login } = useAuthContext();
     const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
