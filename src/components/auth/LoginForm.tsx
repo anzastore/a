@@ -33,15 +33,15 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
 
             // Admin Logic: Redirect to Admin Dashboard
             if (user.role === 'admin') {
-                router.push('/admin/dashboard');
+                toast.success("Redirecting Admin...");
+                window.location.href = '/admin/dashboard';
                 return;
             }
 
             // User Logic: Redirect to User Dashboard
             if (user.role === 'user') {
-                router.push('/user/dashboard'); // Changed from '/' to '/user/dashboard'
-
-                if (onSuccess) onSuccess(); // Close modal if applicable (though usually we redirect)
+                toast.success("Redirecting User...");
+                window.location.href = '/user/dashboard';
                 return;
             }
 
@@ -49,7 +49,7 @@ export default function LoginForm({ onSuccess, onRegisterClick, isModal = false 
             if (onSuccess) {
                 onSuccess();
             } else {
-                router.push('/');
+                window.location.href = '/';
             }
         } catch (err: any) {
             // Extract specific validation message if available
